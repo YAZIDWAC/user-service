@@ -8,12 +8,20 @@ public class UserResponseDTO {
     private String email;
     private Role role;
     private String fullName;
+    private String matricule;
 
-    public UserResponseDTO(Long id, String email, Role role, String fullName) {
+    public UserResponseDTO(
+            Long id,
+            String email,
+            Role role,
+            String fullName,
+            String matricule
+    ) {
         this.id = id;
         this.email = email;
         this.role = role;
         this.fullName = fullName;
+        this.matricule = matricule;
     }
 
     public Long getId() {
@@ -30,5 +38,9 @@ public class UserResponseDTO {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getMatricule() {
+        return matricule;
     }
 }

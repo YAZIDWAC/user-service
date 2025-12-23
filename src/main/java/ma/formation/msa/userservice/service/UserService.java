@@ -70,7 +70,8 @@
                     user.getId(),
                     user.getEmail(),
                     user.getRole(),
-                    user.getFullName()
+                    user.getFullName(),
+                    user.getMatricule()
             );
         }
 
@@ -82,6 +83,8 @@
             User student = new User();
             student.setEmail(request.getEmail());
             student.setFullName(request.getFullName());
+            student.setMatricule(request.getMatricule());
+
             student.setRole(Role.STUDENT);
 
             student.setPassword(

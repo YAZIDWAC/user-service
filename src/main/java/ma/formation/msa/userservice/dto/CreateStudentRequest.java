@@ -5,6 +5,8 @@ public class CreateStudentRequest {
     private String email;
     private String password;
     private String fullName;
+    private String matricule;
+
 
     // getters & setters
     public String getEmail() {
@@ -29,5 +31,12 @@ public class CreateStudentRequest {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
     }
 }

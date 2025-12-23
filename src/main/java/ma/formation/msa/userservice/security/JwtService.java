@@ -15,17 +15,20 @@ public class JwtService {
     private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24h
 
-    public String generateToken(String email, String role) {
+    // ✅ TOKEN AVEC MATRICULE
+    public String generateToken(String email, String role, String matricule) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
+                .claim("matricule", matricule)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(
+                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
+                )
                 .signWith(secretKey)
                 .compact();
     }
 
-    // 🔍 Lire les claims
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -40,6 +43,10 @@ public class JwtService {
 
     public String extractRole(String token) {
         return extractAllClaims(token).get("role", String.class);
+    }
+
+    public String extractMatricule(String token) {
+        return extractAllClaims(token).get("matricule", String.class);
     }
 
     public boolean isTokenValid(String token) {

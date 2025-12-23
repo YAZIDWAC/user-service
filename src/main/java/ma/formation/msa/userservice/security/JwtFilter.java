@@ -32,7 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // 🔥 NE JAMAIS filtrer les endpoints publics
+        // 🔓 PUBLIC ENDPOINTS
         if (path.startsWith("/api/auth")) {
             filterChain.doFilter(request, response);
             return;
@@ -54,6 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String email = jwtService.extractEmail(token);
         String role = jwtService.extractRole(token);
+        String matricule = jwtService.extractMatricule(token); // 🔥
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
@@ -61,6 +62,9 @@ public class JwtFilter extends OncePerRequestFilter {
                         null,
                         List.of(new SimpleGrantedAuthority("ROLE_" + role))
                 );
+
+        // 🔥 OPTIONNEL : stocker le matricule dans le contexte
+        authentication.setDetails(matricule);
 
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
